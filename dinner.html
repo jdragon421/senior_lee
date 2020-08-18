@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="kor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/dinner.css" />
+    <title>dinner</title>
+  </head>
+
+  <body>
+    <div class="statusplusnav">
+      <div class="status-bar">
+        <div class="status-bar__column">
+          <!-- <img src="images/Believe_B.png" class="home__body-imgB" />
+          <img src="images/Believe_Liiv.png" class="home__body-imgLiiv" /> -->
+        </div>
+        <div class="status-bar__column">
+          <img src="images/people.png" class="home__body-people" />
+        </div>
+      </div>
+
+      <div class="nav">
+        <ul class="nav__list">
+            <li class="nav__list-item1">
+                <a href="breakfast.html" class="nav__list-link breakfastlink">
+                자산
+              </li></a>
+              <li class="nav__list-item2">
+                <a href="lunch.html" class="nav__list-link lunchlink">지출</li></a>
+                <li class="nav__list-item3"><a href="dinner.html" class="nav__list-link dinnerlink">설계</li></a>
+        </ul>
+      </div>
+    </div>
+
+    <main class="dinner">
+
+      <div class="dinner__body-content">        
+        <div class="dinner__lackMoney">
+          <div class="dinner__lackMoney_korean">
+            김스뱅님의 부족 금액
+          </div>
+          <div class="dinner__lackMoney_below">
+            <i class="fas fa-caret-down"></i>
+            <span class= "dinner__lackMoney_number">
+              5억
+            </span>
+            <button            
+              type="button"
+              id="dinner_button"
+              onclick="dinner_button_click()"
+            >
+            <script src="dinner.js"></script>
+            <i class="fas fa-sort-down"></i>
+          </button>
+          </div>
+        </div>
+
+         
+        </div>
+
+
+          <div class = "dinner__contents">          
+            
+            <div class="dinner__popup1">
+              <div class="dinner__popup1__money">
+                + 4억 2000만원
+              </div>
+              <div class="dinner__popup1__korean">
+                미래수입
+              </div>
+            </div>
+
+            <div class = "dinner__popup2">
+              <div class="dinner__popup2__money">
+                 -  9억 2000만원
+              </div>
+              <div class="dinner__popup2__korean">
+                미래지출
+              </div>
+            </div>
+
+            <hr class="line_one">
+            <div class="dinner__body-solution">
+              <a href="pension.html">
+                <div class= "dinner__body-solution_home">
+                  <i class="fas fa-home"></i>
+                  <div class= "dinner__body-solution_home2">
+                    주택연금 전환하기
+                  </div>
+                </div>
+              </a>
+              <div class= "dinner__body-solution_irp">
+                <i class="fas fa-hourglass-half"></i>
+                <div class= "dinner__body-solution_irp2">
+                  개인형IRP 가입하기
+                </div>
+              </div>
+
+              <div class= "dinner__body-solution_liivM">
+                <div>
+                  <img src ="images/liivM.jpg" class = "dinner__body-solution-liivM1">
+                </div>
+                <div class= "dinner__body-solution_liivM2">
+                  통신비 줄여보기
+                </div>               
+              </div>
+
+            </div>
+           
+
+
+            <div>
+              <button class="dinner__solution-button">
+                <div class ="dinner__home-image">
+                 <i class="fas fa-search"></i>
+                </div>
+                 <span class ="solution-button-name"><strong>9+</strong> 개의 솔루션 더 보기 </span>
+              </button>
+            </div>
+
+          </div>        
+
+        </div>    
+      </div>
+    </main>
+</body>
+
+
+    <div class = "dinner__graph">
+      <div class ="dinner__graph__contents">
+           그래프 들어갈 자리
+      </div>     
+    </div>
+
+    
+
+  </body>
+
+</html>

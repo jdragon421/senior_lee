@@ -1,0 +1,356 @@
+.nav .nav__list-item2,
+.nav .nav__list-item3 {
+  opacity: 0.6;
+}
+
+.nav .nav__list-item1 {
+  border-bottom: 3px solid #f7f7f7;
+}
+
+.breakfast {
+  padding: 0px 10px;
+}
+
+.breakfast__body-content {
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 10px 30px;
+  background-color: gray;
+  color: white;
+}
+
+.breakfast__body-content .breakfast__body-content-up {
+  display: flex;
+}
+
+.breakfast__body-content .breakfast__body-content-text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 15px;
+  opacity: 0.7;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.breakfast__body-content .breakfast__body-content-money {
+  font-size: 20px;
+}
+
+.breakfast__body-content-up i {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.breakfast .breakfast__body-content {
+  margin-bottom: 10px;
+}
+
+.nav__list .nav__list-link {
+  color: white;
+  text-decoration: none;
+}
+
+#breakfast_button {
+  background-color: gray;
+}
+
+.sort-down-button {
+  background-color: gray;
+  color: white;
+}
+
+/* 계좌, 현금 */
+
+.deposit {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 20px 30px;
+  margin: 10px;
+  border-radius: 1em;
+  border: 1px solid black;
+}
+
+.deposit-totalMoney .d-m {
+  position: absolute;
+  right: 10%;
+}
+
+.deposit-totalMoney1 {
+  font-size: 17px;
+  margin-bottom: 17px;
+}
+
+.deposit-totalMoney .deposit-korean1,
+.deposit-money4,
+.deposit-money5,
+.deposit-money7,
+.deposit-money8,
+.deposit-money9,
+.deposit-money10,
+.card-totalNumber2 {
+  font-weight: bold;
+}
+
+.deposit-totalMoney .deposit-money1 {
+  opacity: 0.4;
+  font-weight: bold;
+}
+
+.deposit-totalMoney2,
+.deposit-totalMoney3,
+.deposit-totalMoney4,
+.deposit-totalMoney5,
+.deposit-totalMoney6,
+.deposit-totalMoney7,
+.deposit-totalMoney8,
+.deposit-totalMoney9,
+.deposit-totalMoney10 {
+  margin-left: 10px;
+}
+
+.deposit-totalMoney2,
+.deposit-totalMoney3,
+.deposit-totalMoney6 {
+  font-size: 15px;
+  opacity: 0.6;
+}
+
+.deposit-totalMoney3,
+.deposit-totalMoney6 {
+  margin-bottom: 10px;
+}
+
+.deposit-money8 {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.deposit-totalMoney2 {
+  margin-bottom: 3px;
+}
+
+hr.line_one {
+  width: 95%;
+  border-bottom: 10px;
+  text-align: center;
+  margin-left: 7px;
+}
+
+.totalMoney_kb {
+  width: 22px;
+  height: auto;
+}
+
+.totalMoney_kakao {
+  width: 22px;
+  height: auto;
+}
+
+.deposit-totalMoney .d-kk {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.deposit-totalMoney4,
+.deposit-totalMoney7,
+.deposit-totalMoney8,
+.deposit-totalMoney9,
+.deposit-totalMoney10 {
+  margin-bottom: 7px;
+}
+
+.deposit-totalMoney5 {
+  margin-bottom: 17px;
+}
+
+.deposit-totalMoney3 {
+  color: #7d3cec;
+}
+
+/* 카드 */
+.card {
+  padding: 20px 30px;
+  margin: 10px;
+  border-radius: 1em;
+  border: 1px solid black;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.card-totalMoney {
+  margin-bottom: 35px;
+}
+.card-totalMoney .card-totalKorean,
+.card-totalNumber {
+  position: absolute;
+  right: 10%;
+  opacity: 0.7;
+}
+
+.card-totalNumber2,
+.card-kbPurchase {
+  position: absolute;
+  right: 10%;
+}
+
+.card-kbPurchase {
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.card-korean {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.card-kbcard {
+  margin-left: 10px;
+}
+
+.card-korean2 {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.card-kb {
+  margin-bottom: 10px;
+}
+
+/* 대출 */
+
+.loan {
+  padding: 20px 30px;
+  margin: 10px;
+  border-radius: 1em;
+  border: 1px solid black;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.loanTotalKorean {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.loanTotalMoney {
+  font-size: 17px;
+  opacity: 0.6;
+}
+
+.loanTotalMoney,
+.loanItemMoney {
+  position: absolute;
+  right: 10%;
+}
+
+.loan-total {
+  padding-bottom: 15px;
+}
+
+.loanItemKorean {
+  font-size: 13px;
+}
+
+.loanItemMoney {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* 부동산 */
+.asset {
+  padding-top: 20px;
+  margin: 10px;
+  border-radius: 1em;
+  border: 1px solid black;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.asset-total,
+.asset-detail {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.assetTotalKorean {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.assetTotalMoney {
+  position: absolute;
+  right: 10%;
+  font-size: 17px;
+  opacity: 0.6;
+}
+
+.asset-detail {
+  display: flex;
+}
+
+.asset-image {
+  padding: 5px;
+  border: solid 0.5px gray;
+  color: gray;
+  margin-right: 5px;
+}
+
+.buildingName,
+.buildingType {
+  font-size: 12px;
+  display: flex;
+}
+
+.buildingUpDown {
+  font-size: 12px;
+}
+
+.buildingType {
+  opacity: 0.7;
+}
+
+.asset-money {
+  flex-direction: column;
+}
+
+.buildingPrice,
+.asset-money-detail {
+  display: flex;
+}
+
+.asset-money {
+  position: absolute;
+  right: 10%;
+}
+
+.buildingUpDown,
+.fa-caret-up {
+  color: red;
+  opacity: 0.7;
+}
+
+.fa-caret-up {
+  margin-right: 3px;
+}
+
+.buildingPrice {
+  margin-left: 35px;
+}
+
+.asset-detail {
+  margin-bottom: 30px;
+}
+
+.asset-plus-button {
+  background-color: gray;
+  width: 100%;
+  height: 50px;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.asset-plus-button-name,
+.fa-plus-circle {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fa-plus-circle {
+  margin-right: 3px;
+}

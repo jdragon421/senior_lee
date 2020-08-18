@@ -1,0 +1,32 @@
+.statusplusnav {
+  background-color: gray;
+}
+
+.status-bar .status-bar__column {
+  display: inline-block;
+}
+
+.status-bar .home__body-imgB {
+  position: relative;
+  top: 10px;
+  margin-bottom: 20px;
+
+  width: 90%;
+  height: auto;
+}
+
+.status-bar .home__body-people {
+  position: absolute;
+  right: 4%;
+  top: 2%;
+  width: 5%;
+  height: auto;
+}
+
+.status-bar .home__body-imgLiiv {
+  position: absolute;
+  top: 10px;
+  left: 82px;
+  height: 10%;
+  width: auto;
+}
