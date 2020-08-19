@@ -1,111 +1,107 @@
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Circle Custom Angle</title>
-    <style>
-        #chart {
-      padding: 0;
-      max-width: 650px;
-      margin: 35px auto;
-    }
-    
-    .apexcharts-legend text {
-      font-weight: 900;
-    }
+   
 
-    </style>
-
-    <script>
-      window.Promise ||
-        document.write(
-          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
-        )
-      window.Promise ||
-        document.write(
-          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
-        )
-      window.Promise ||
-        document.write(
-          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
-        )
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     
   </head>
 
   <body>
-     <div id="chart"></div>
-
-    <script>
+    
       
-        var options = {
-          series: [76, 90],
-          chart: {
-          height: 390,
-          type: 'radialBar',
-        },
-        plotOptions: {
-          radialBar: {
-            offsetY: 0,
-            startAngle: 0,
-            endAngle: 270,
-            hollow: {
-              margin: 5,
-              size: '30%',
-              background: 'transparent',
-              image: undefined,
-            },
-            dataLabels: {
-              name: {
-                show: false,
-              },
-              value: {
-                show: false,
-              }
-            }
-          }
-        },
-        colors: ['#1ab7ea', '#0084ff'],
-        labels: ['Vimeo', 'Messenger'],
-        legend: {
-          show: true,
-          floating: true,
-          fontSize: '16px',
-          position: 'left',
-          offsetX: 160,
-          offsetY: 40,
-          labels: {
-            useSeriesColors: true,
-          },
-          markers: {
-            size: 3
-          },
-          formatter: function(seriesName, opts) {
-            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
-          },
-          itemMargin: {
-            vertical: 10    //글자 간격
-          }
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            legend: {
-                show: false
-            }
-          }
-        }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+    <style>
+      #chartdiv {
+        width: 100%;
+        height: 500px;
+      }
+      
+      </style>
+      
+      <!-- Resources -->
+      <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+      <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+      <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+      
+      <!-- Chart code -->
+      <script>
+      am4core.ready(function() {
+      
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
       
       
-    </script>
-
+      
+      // Create chart instance
+      var chart = am4core.create("chartdiv", am4charts.RadarChart);
+      
+      // Add data
+      chart.data = [{
+        "category": "Distribution",
+        "value": 92,
+        "full": 100
+      }, {
+        "category": "Human Resources",
+        "value": 68,
+        "full": 100
+      }];
+      
+      // Make chart not full circle
+      chart.startAngle = -90; //원차트 각도
+      chart.endAngle = 180;
+      chart.innerRadius = am4core.percent(20);  //차트 두께
+      
+      // Set number format
+      chart.numberFormatter.numberFormat = "#.#'%'";
+      
+      // Create axes
+      var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.dataFields.category = "category";
+      categoryAxis.renderer.grid.template.location = 0;
+      categoryAxis.renderer.grid.template.strokeOpacity = 0;
+      categoryAxis.renderer.labels.template.horizontalCenter = "right";
+      categoryAxis.renderer.labels.template.fontWeight = 500;
+      categoryAxis.renderer.labels.template.adapter.add("fill", function(fill, target) {
+        return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
+      });
+      categoryAxis.renderer.minGridDistance = 10;
+      
+      var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxis.renderer.grid.template.strokeOpacity = 0;
+      valueAxis.min = 0;
+      valueAxis.max = 100;
+      valueAxis.strictMinMax = true;
+      
+      // Create series
+      var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+      series1.dataFields.valueX = "full";
+      series1.dataFields.categoryY = "category";
+      series1.clustered = false;
+      series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+      series1.columns.template.fillOpacity = 0.08;
+      series1.columns.template.cornerRadiusTopLeft = 20;
+      series1.columns.template.strokeWidth = 0;
+      series1.columns.template.radarColumn.cornerRadius = 20;
+      
+      var series2 = chart.series.push(new am4charts.RadarColumnSeries());
+      series2.dataFields.valueX = "value";
+      series2.dataFields.categoryY = "category";
+      series2.clustered = false;
+      series2.columns.template.strokeWidth = 0;
+      series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+      series2.columns.template.radarColumn.cornerRadius = 20;
+      
+      series2.columns.template.adapter.add("fill", function(fill, target) {
+        return chart.colors.getIndex(target.dataItem.index);
+      });
+      
+      // Add cursor
+      chart.cursor = new am4charts.RadarCursor();
+      
+      }); // end am4core.ready()
+      </script>
+      
+      <!-- HTML -->
+      <div id="chartdiv"></div>
     
   </body>
 </html>
