@@ -29,18 +29,16 @@
       am4core.useTheme(am4themes_animated);
       // Themes end
       
-      
-      
       // Create chart instance
       var chart = am4core.create("chartdiv", am4charts.RadarChart);
       
       // Add data
       chart.data = [{
-        "category": "Distribution",
+        "category": "50대 평균",
         "value": 92,
         "full": 100
       }, {
-        "category": "Human Resources",
+        "category": "내 도달률",
         "value": 68,
         "full": 100
       }];
@@ -59,7 +57,7 @@
       categoryAxis.renderer.grid.template.location = 0;
       categoryAxis.renderer.grid.template.strokeOpacity = 0;
       categoryAxis.renderer.labels.template.horizontalCenter = "right";
-      categoryAxis.renderer.labels.template.fontWeight = 500;
+      categoryAxis.renderer.labels.template.fontWeight = 700;
       categoryAxis.renderer.labels.template.adapter.add("fill", function(fill, target) {
         return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
       });
@@ -94,8 +92,6 @@
         return chart.colors.getIndex(target.dataItem.index);
       });
       
-      // Add cursor
-      chart.cursor = new am4charts.RadarCursor();
       
       }); // end am4core.ready()
       </script>
