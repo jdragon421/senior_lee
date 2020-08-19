@@ -14,6 +14,7 @@
     .apexcharts-legend text {
       font-weight: 900;
     }
+
     </style>
 
     <script>
@@ -41,7 +42,7 @@
     <script>
       
         var options = {
-          series: [76, 67],
+          series: [76, 90],
           chart: {
           height: 390,
           type: 'radialBar',
@@ -50,7 +51,7 @@
           radialBar: {
             offsetY: 0,
             startAngle: 0,
-            endAngle: 170,
+            endAngle: 270,
             hollow: {
               margin: 5,
               size: '30%',
@@ -75,18 +76,18 @@
           fontSize: '16px',
           position: 'left',
           offsetX: 160,
-          offsetY: 15,
+          offsetY: 40,
           labels: {
             useSeriesColors: true,
           },
           markers: {
-            size: 0
+            size: 3
           },
           formatter: function(seriesName, opts) {
             return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
           },
           itemMargin: {
-            vertical: 3
+            vertical: 10    //글자 간격
           }
         },
         responsive: [{
