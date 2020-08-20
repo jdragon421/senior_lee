@@ -1,34 +1,27 @@
 <html lang="en">
   <head>
-   
-
-    
-  </head>
-
-  <body>
-    
       
+  </head>
+  <body>
     <style>
       #chartdiv {
         width: 100%;
         height: 500px;
-      }
-      
+      }  
       </style>
       
       <!-- Resources -->
       <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
       <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
       <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-      
       <!-- Chart code -->
       <script>
       am4core.ready(function() {
       
       // Themes begin
       am4core.useTheme(am4themes_animated);
-      // Themes end
       
+      // Themes end      
       // Create chart instance
       var chart = am4core.create("chartdiv", am4charts.RadarChart);
       
@@ -50,6 +43,7 @@
       
       // Set number format
       chart.numberFormatter.numberFormat = "#.#'%'";
+      chart.logo.disabled = true; //arm차트 로고 숨기기
       
       // Create axes
       var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
@@ -61,13 +55,14 @@
       categoryAxis.renderer.labels.template.adapter.add("fill", function(fill, target) {
         return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
       });
-      categoryAxis.renderer.minGridDistance = 10;
+      categoryAxis.renderer.minGridDistance = 10; // 값 거리??
       
       var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-      valueAxis.renderer.grid.template.strokeOpacity = 0;
+      valueAxis.renderer.grid.template.strokeOpacity = 0; //범위 선긋기
       valueAxis.min = 0;
       valueAxis.max = 100;
       valueAxis.strictMinMax = true;
+      valueAxis.renderer.minGridDistance = 9823432
       
       // Create series
       var series1 = chart.series.push(new am4charts.RadarColumnSeries());
@@ -80,6 +75,17 @@
       series1.columns.template.strokeWidth = 0;
       series1.columns.template.radarColumn.cornerRadius = 20;
       
+      var label0 = chart.radarContainer.createChild(am4core.Label);
+      label0.isMeasured = false;
+      label0.y = -30
+      label0.horizontalCenter = "middle";
+      label0.verticalCenter = "top";
+      label0.text = "Very good";
+
+      label0.adapter.add("x", function(x, target){
+        return -(valueAxis.renderer.pixelInnerRadius + (valueAxis.renderer.pixelRadius - valueAxis.renderer.pixelInnerRadius) / 2);
+      });
+
       var series2 = chart.series.push(new am4charts.RadarColumnSeries());
       series2.dataFields.valueX = "value";
       series2.dataFields.categoryY = "category";
