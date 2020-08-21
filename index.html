@@ -21,10 +21,10 @@
   
   // Create chart instance
   var chart = am4core.create("chartdiv", am4charts.PieChart);
+  chart.logo.disabled = true; //arm차트 로고 숨기기
   
   // Let's cut a hole in our Pie chart the size of 40% the radius
   chart.innerRadius = am4core.percent(40);
-  
   
   
   // Add and configure Series
@@ -33,7 +33,7 @@
   pieSeries.dataFields.category = "category";
   pieSeries.slices.template.stroke = am4core.color("#fff");
   pieSeries.innerRadius = 10;
-  pieSeries.slices.template.fillOpacity = 0.5;
+  pieSeries.slices.template.fillOpacity = 0.3;
   
   pieSeries.slices.template.propertyFields.disabled = "labelDisabled";
   pieSeries.labels.template.propertyFields.disabled = "labelDisabled";
@@ -61,7 +61,9 @@
   pieSeries2.slices.template.states.getKey("hover").properties.shiftRadius = 0;
   pieSeries2.slices.template.states.getKey("hover").properties.scale = 1;
   pieSeries2.slices.template.propertyFields.fill = "fill";
+ 
   
+  //pieSeries.legend.itemContainers.template.clickable=false;
   // Add data
   pieSeries2.data = [{
     "category": "금융자산",
@@ -84,7 +86,12 @@
     "value": 30,
     "fill":"#dedede"
   }];
-  
+  var slice = pieSeries.slices.template;
+  slice.states.getKey("hover").properties.scale = 1;
+  slice.states.getKey("active").properties.shiftRadius = 0;
+  slice = pieSeries2.slices.template;
+  slice.states.getKey("hover").properties.scale = 1;
+  slice.states.getKey("active").properties.shiftRadius = 0;
   
   pieSeries.adapter.add("innerRadius", function(innerRadius, target){
     return am4core.percent(40);
