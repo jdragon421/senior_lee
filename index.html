@@ -24,7 +24,7 @@
   chart.logo.disabled = true; //arm차트 로고 숨기기
   
   // Let's cut a hole in our Pie chart the size of 40% the radius
-  chart.innerRadius = am4core.percent(40);
+  chart.innerRadius = am4core.percent(20);
   
   
   // Add and configure Series
@@ -33,21 +33,23 @@
   pieSeries.dataFields.category = "category";
   pieSeries.slices.template.stroke = am4core.color("#fff");
   pieSeries.innerRadius = 10;
-  pieSeries.slices.template.fillOpacity = 0.3;
+  pieSeries.slices.template.fillOpacity = 0.5;
   
-  pieSeries.slices.template.propertyFields.disabled = "labelDisabled";
-  pieSeries.labels.template.propertyFields.disabled = "labelDisabled";
-  pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";
-  
-  
+
+  pieSeries.slices.template.propertyFields.disabled = "labelDisabled2";
+  pieSeries.labels.template.propertyFields.disabled = "labelDisabled";  //큰 조각 라벨
+  pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";   //큰 조각 화살표
+
   // Add data
   pieSeries.data = [{
     "category": "",
-    "value": 105
+    "value": 175,
+    "labelDisabled":true,
+    "labelDisabled2":true
   }, {
-    "category": "Unused",
+    "category": "부족금액",
     "value": 30,
-    "labelDisabled":true
+    "labelDisabled" : true
   }];
   
   // Disable sliding out of slices
@@ -61,37 +63,49 @@
   pieSeries2.slices.template.states.getKey("hover").properties.shiftRadius = 0;
   pieSeries2.slices.template.states.getKey("hover").properties.scale = 1;
   pieSeries2.slices.template.propertyFields.fill = "fill";
- 
-  
+
   //pieSeries.legend.itemContainers.template.clickable=false;
   // Add data
   pieSeries2.data = [{
     "category": "금융자산",
-    "value": 30
+    "value": 140,
+    "fill":"#008FFB"
   }, {
     "category": "공적연금",
-    "value": 30
+    "value": 20,
+    "fill":"#00E397"
   }, 
   {
     "category": "퇴직연금",
-    "value": 30
+    "value": 10,
+    "fill":"#FEB019"
   },
   {
     "category": "개인연금",
-    "value": 15
+    "value": 5,
+    "fill":"#FF4560"
   },
   
     {
-    "category": "Remaining",
+    "category": "부족금액",
     "value": 30,
-    "fill":"#dedede"
+    "labelDisabled":true,
+    "fill":"#B3C9ED"
   }];
+
+  
   var slice = pieSeries.slices.template;
   slice.states.getKey("hover").properties.scale = 1;
   slice.states.getKey("active").properties.shiftRadius = 0;
   slice = pieSeries2.slices.template;
   slice.states.getKey("hover").properties.scale = 1;
   slice.states.getKey("active").properties.shiftRadius = 0;
+
+  var label = pieSeries.createChild(am4core.Label);   //가운데 합계
+  label.text = "66% 달성";
+  label.horizontalCenter = "middle";
+  label.verticalCenter = "middle";
+  label.fontSize = 40;
   
   pieSeries.adapter.add("innerRadius", function(innerRadius, target){
     return am4core.percent(40);
