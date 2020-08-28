@@ -10,7 +10,27 @@
     width: 12%;
     height:500px;
   }
-  
+
+  #pie_legend_div {
+    width: 80%;
+
+    margin : 0 auto;
+  }
+  .pie_legend_box{
+    width:15%;
+    height: 4rem;
+    border-style: solid;
+    border-width: 1%;
+    padding: 3%;
+    margin: 0.5%;
+    border-radius: 1rem;
+    border-color : gray;
+    display:inline-block;
+    text-align :center;
+    vertical-align: center;
+  }
+
+
   </style>
   
   <!-- Resources -->
@@ -28,44 +48,14 @@
       var monthlyPerPention=Math.round(perPention/ageRange/12);
       var monthlyRetirePention=Math.round(retirePention/ageRange/12);
       var shortAmount=reqAsset-(monthlyFinAsset+monthlyPubPention+monthlyPerPention+monthlyRetirePention);  //월 부족금액
-      
+      am4core.useTheme(am4themes_animated);
       // 도넛차트 시작
       var chart = am4core.create("chartdiv", am4charts.PieChart);
-      chart.logo.disabled = true; //arm차트 로고 숨기기
-   //   chart.legend = new am4charts.Legend(); 
-   //   chart.legend.position = "right";
-
-      // Let's cut a hole in our Pie chart the size of 40% the radius
       chart.innerRadius = am4core.percent(20);
-      chart.item
-      // 도넛차트 생성
+      chart.logo.disabled = true; //arm차트 로고 숨기기
+    
+      // 카테고리별 도넛차트 생성
       var pieSeries2 = chart.series.push(new am4charts.PieSeries());
-
-      // 오른쪽 카테고리 설명
-      var legend = new am4charts.Legend();
-      legend.parent = chart.chartContainer;
-     
-     // legend.width = 120;
-      legend.align = "right";
-     
-      legend.data = [{
-        "name": "금융자산 : " + monthlyFinAsset,
-        "fill":"#008FFB"
-      }, {
-        "name": "공적연금 : " + monthlyPubPention,
-        "fill": "#00E397"
-      }, {
-        "name": "퇴직연금 : " + monthlyRetirePention,
-        "fill": "#FEB019"
-      },{
-        "name": "개인연금 : " + monthlyPerPention,
-        "fill": "#FF4560"
-      },{
-        "name": "부족금액 : " + shortAmount,
-        "fill": "#B3C9ED"
-      }];
-      legend.position="right";
-      
       pieSeries2.dataFields.value = "value";
       pieSeries2.slices.template.propertyFields.fill = "fill";
       pieSeries2.labels.template.fontSize="30";
@@ -92,14 +82,14 @@
         {
         "category": "개인연금",
         "value": monthlyPerPention,
-        "fill":"#FF4560",
+        "fill":"#B3C9ED",
         "labelDisabled":true,
         },
       
         {
         "category": "부족금액",
         "value": shortAmount,
-        "fill":"#B3C9ED",
+        "fill":"#FFFFFF",
         "labelDisabled":true
       }];
 
@@ -107,12 +97,10 @@
       var pieSeries = chart.series.push(new am4charts.PieSeries());
       pieSeries.dataFields.value = "value";
       pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.propertyFields.fill = "fill";
       pieSeries.slices.template.propertyFields.disabled = "labelDisabled2";
       pieSeries.labels.template.propertyFields.disabled = "labelDisabled";  //큰 조각 라벨
       pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";   //큰 조각 화살표
-     // chart.legend.disabled="legendDisabled";
-      // chart.legend.disabled="legendDisabled";
-      // Add data
       pieSeries.data = [{
         "category": "",
         "value": monthlyFinAsset+monthlyPerPention+monthlyPubPention+monthlyRetirePention,
@@ -122,24 +110,10 @@
       }, {
         "category": "부족금액",
         "value": shortAmount,
+        "fill":"#FF4560",
         "labelDisabled" : true
       }];
-      
-      // 마우스 클릭 이벤트 제어
-      var slice = pieSeries.slices.template;    
-      slice.states.getKey("hover").properties.scale = 1;
-      slice.states.getKey("active").properties.shiftRadius = 0;
-      slice = pieSeries2.slices.template;
-      slice.states.getKey("hover").properties.scale = 1;
-      slice.states.getKey("active").properties.shiftRadius = 0;
 
-      // 파이차트 가운데 합계 라벨
-      var label = pieSeries.createChild(am4core.Label);
-      label.text =  Math.round((monthlyFinAsset+monthlyPerPention+monthlyPubPention+monthlyRetirePention)/reqAsset*100)+"% 달성";
-      label.horizontalCenter = "middle";
-      label.verticalCenter = "middle";
-      label.fontSize = 40;
-      
       pieSeries.adapter.add("innerRadius", function(innerRadius, target){
         return am4core.percent(40);
       })
@@ -156,73 +130,102 @@
         return am4core.percent(80);
       })
 
-    var chart2 = am4core.create("chartdiv2", am4charts.XYChart);
-    chart2.logo.disabled = true; //arm차트 로고 숨기기
-    
-    
-    chart2.data = [
-      {
-        category: "One",
-        value1: finAsset+pubPention+perPention+retirePention,   // 내가 지금까지 모은 금액
-        value2: (reqAsset*12*ageRange)-(finAsset+pubPention+perPention+retirePention) // 총필요자산 - 내가 지금까지 모은금액(value1)
-      }
-    ];
-    
-    chart2.colors.step = 2;
-    chart2.padding(30, 30, 10, 30);
-    
-    var categoryAxis = chart2.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "category";
-    categoryAxis.renderer.grid.template.location = 0;
-    
-    var valueAxis = chart2.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.min = 0;
-    valueAxis.max = 100;
-    valueAxis.strictMinMax = true;
-    valueAxis.calculateTotals = true;
-    valueAxis.renderer.minWidth = 50;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.renderer.labels.template.disabled = true;
-    
-    
-    var series1 = chart2.series.push(new am4charts.ColumnSeries());   //내가 지금까지 모은 돈
-    series1.columns.template.width = am4core.percent(100);
-    series1.dataFields.categoryX = "category";
-    series1.dataFields.valueY = "value1";
-    series1.dataFields.valueYShow = "totalPercent";
-    series1.dataItems.template.locations.categoryX = 0.5;
-    series1.stacked = true;
-    
-    var bullet1 = series1.bullets.push(new am4charts.LabelBullet());  //막대그래프 안에 글자
-    bullet1.interactionsEnabled = false;
-    bullet1.label.text = ((finAsset+pubPention+perPention+retirePention)/100000000).toFixed(1)+"억원";
-    bullet1.label.fill = am4core.color("#ffffff");
-    bullet1.locationY = 0.5;
+      document.getElementById('pie_legend_box1').innerHTML = "개인연금<br>" + Math.round(finAsset/100000000)+"억원";
+      document.getElementById('pie_legend_box2').innerHTML = "공적연금<br>" + Math.round(pubPention/100000000)+"억원";
+      document.getElementById('pie_legend_box3').innerHTML = "퇴직연금<br>" + Math.round(retirePention/100000000)+"억원";
+      document.getElementById('pie_legend_box4').innerHTML = "개인연금<br>" + Math.round(perPention/100000000)+"억원";
+      // 마우스 클릭 이벤트 제어
+      var slice = pieSeries.slices.template;    
+      slice.states.getKey("hover").properties.scale = 1;
+      slice.states.getKey("active").properties.shiftRadius = 0;
+      slice = pieSeries2.slices.template;
+      slice.states.getKey("hover").properties.scale = 1;
+      slice.states.getKey("active").properties.shiftRadius = 0;
 
-    var series2 = chart2.series.push(new am4charts.ColumnSeries()); //부족한 부분
-    series2.fillOpacity = 0.6;
-    series2.columns.template.width = am4core.percent(100);
-    series2.dataFields.categoryX = "category";
-    series2.dataFields.valueY = "value2";
-    series2.dataFields.valueYShow = "totalPercent";
-    series2.fill="#ffffff";
-    series2.dataItems.template.locations.categoryX = 0.5;
-    series2.stacked = true;
-    
-    var bullet2 = series2.bullets.push(new am4charts.LabelBullet());  //막대그래프 안에 글자
-    bullet2.interactionsEnabled = false;
-    bullet2.label.text = (((reqAsset*12*ageRange)-(finAsset+pubPention+perPention+retirePention))/100000000).toFixed(1)+"억원";
-    bullet2.locationY = 0.5;
-    bullet2.label.fill = am4core.color("#FFBB00");
+      slice.events.on("dragstop", function (event) {
+            handleDragStop(event);
+        })
+
+      // 파이차트 가운데 합계 라벨
+      var label = pieSeries.createChild(am4core.Label);
+      label.text =  '미래준비율\n'+Math.round((monthlyFinAsset+monthlyPerPention+monthlyPubPention+monthlyRetirePention)/reqAsset*100)+"% 달성";
+      label.horizontalCenter = "middle";
+      label.verticalCenter = "middle";
+      label.fontSize = 40;
+
+      // 오른쪽 카테고리 설명
+      // var legend = new am4charts.Legend();
+      // legend.parent = chart.chartContainer;
+      // legend.fontSize="20"
+      // legend.align = "right";
+      // legend.data = [{
+      //   "name": "금융자산 : " + Math.round(monthlyFinAsset/10000)+"만원",
+      //   "fill":"#008FFB"
+      // }, {
+      //   "name": "공적연금 : " + Math.round(monthlyPubPention/10000)+"만원",
+      //   "fill": "#00E397"
+      // }, {
+      //   "name": "퇴직연금 : " + Math.round(monthlyRetirePention/10000)+"만원",
+      //   "fill": "#FEB019"
+      // },{
+      //   "name": "개인연금 : " + Math.round(monthlyPerPention/10000)+"만원",
+      //   "fill": "#B3C9ED"
+      // },{
+      //   "name": "부족금액 : " + Math.round(shortAmount/10000)+"만원",
+      //   "fill": "#FF4560"
+      // }];
+      // legend.position="right";
+      // legend.fontSize=40;
+      // legend.maxWidth = undefined;
+      // legend.itemContainers.template.clickable = false;
+      // legend.itemContainers.template.focusable = false;
+      // legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
+
+      //애니메이션 효과
+      pieSeries.hiddenState.properties.endAngle = -80;
+      pieSeries2.hiddenState.properties.endAngle = -80;
+
+     // chart.itemContainers.template.focusable = false;
+      // function handleDragStop(event) {
+      //       var targetSlice = event.target;
+      //       var dataItem1;
+      //       var slice1;
+
+      //       slice1 = targetSlice;
+
+            
+      //       dataItem1 = slice1.dataItem;
+      //       var series1Center = am4core.utils.spritePointToSvg({ x: 0, y: 0 }, pieSeries2.slicesContainer);
+      //       var targetSlicePoint = am4core.utils.spritePointToSvg({ x: targetSlice.tooltipX, y: targetSlice.tooltipY }, targetSlice);
+  
+               
+      //       var value = dataItem1.value;
+      //       dataItem1.hide();
+      //       slice1.animate([{ property: "x", to: 0 }, { property: "y", to: 0 }], 400);
+            
+      //   }
     // end am4core.ready()
-    }
+    
 
+    //document.getElementById("pie_legend_div").innerHTML="<div class='pie_legend_box'>금융자산</div>";
+  }
   </script>
   </head>
   <body>
   <!-- HTML -->
-  <div><div id="chartdiv"></div><div id="chartdiv2"></div></div>
-  <script>monthlyReqChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+  
+  <div><div id="chartdiv"></div>
+  <div id="pie_legend_div">
+    <div class="pie_legend_box" id="pie_legend_box1">
+    </div>
+    <div class="pie_legend_box" id="pie_legend_box2">
+    </div>
+    <div class="pie_legend_box" id="pie_legend_box3">
+    </div>
+    <div class="pie_legend_box" id="pie_legend_box4">
+    </div>
+</div>
+<script>monthlyReqChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
 </body>
 
 </html>
