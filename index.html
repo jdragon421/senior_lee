@@ -10,10 +10,14 @@
             max-width: 650px;
             margin: 35px auto;
         }
-        table{
+        .pentionTable{
             border-collapse:collapse;
-            width: 30%;
-            margin:auto;
+            width: 50%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .tableDiv{
+          width:50%;
         }
         th, td{
             padding: 1%;
@@ -98,23 +102,23 @@
             var chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
 
-            document.getElementById('prePention').innerHTML = "<td>예상적립액</td><td>"+pubPention+"</td>"+"<td>"+retirePention+"</td>"+"<td>"+perPention+"</td>";
-            document.getElementById('payPention').innerHTML = "<td>예상적립액</td><td>"+pubPention+"</td>"+"<td>"+retirePention+"</td>"+"<td>"+perPention+"</td>";
+            document.getElementById('prePention').innerHTML = "<td>예상적립액</td><td>"+(pubPention/100000000).toFixed(2)+"억원</td><td>"+(retirePention/100000000).toFixed(2)+"억원</td><td>"+(perPention/100000000).toFixed(2)+"억원</td>";
+            document.getElementById('payPention').innerHTML = "<td>총납입액</td><td>"+(pubPention/100000000).toFixed(2)+"억원</td><td>"+(retirePention/100000000).toFixed(2)+"억원</td><td>"+(perPention/100000000).toFixed(2)+"억원</td>";
         }
     </script>
     <div id="chart"></div>
-    <div id="pentionTable">
-        <table>
+    <div>
+        <table class="pentionTable">
             <tr>
                 <th>구분</th>
                 <th>국민연금</th>
                 <th>퇴직연금</th>
                 <th>개인연금</th>
             </tr>
-            <tr id=prePention>
+            <tr id="prePention">
 
             </tr>
-            <tr id=payPention>
+            <tr id="payPention">
             </tr>
 
         </table>
