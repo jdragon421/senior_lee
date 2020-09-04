@@ -1,104 +1,126 @@
 <html>
+
 <head>
-<style>
-  #chartdiv {
-    width: 100%;
-    height: 500px;
-  }
+  <style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
 
-  #chartdiv2{
-    width: 12%;
-    height:490px;
-  }
+    #chartdiv2 {
+      width: 12%;
+      height: 500px;
+    }
 
-  #pie_legend_div {
-    width: 80%;
-    
-    margin : 0 auto;
-  }
-  .pie_legend_box{
-    width:15%;
-    height: 4rem;
-    border-style: solid;
-    border-width: 1%;
-    padding: 3%;
-    margin: 0.5%;
-    border-radius: 1rem;
-    border-color : gray;
-    display:inline-block;
-    text-align :center;
-    vertical-align: center;
-  }
-  .incircle{
+    #pie_legend_div {
+      width: 50%;
+      height: 5%;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-  width:1rem;
-  height:1rem;
-  border-radius: 1rem;
-  display:inline-block;
-  }
+    .pie_legend_box {
+      width: 15%;
+      height: 2rem;
+      border-style: solid;
+      border-width: 1%;
+      line-height: 1rem;
+      padding: 1rem;
+      margin: 0.5%;
+      border-radius: 1rem;
+      border-color: gray;
+      display: inline-block;
+      text-align: center;
+      vertical-align: center;
+    }
 
+    .incircle {
 
+      width: 1rem;
+      height: 1rem;
+      border-radius: 1rem;
+      display: inline-block;
+    }
+
+    #chart {
+      max-width: 95%;
+      margin: auto;
+    }
+
+    .pentionTable {
+      border-collapse: collapse;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    th,
+    td {
+      padding: 1%;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
   </style>
-  
+
   <!-- Resources -->
   <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
   <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
   <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
   <script src="https://www.amcharts.com/lib/4/themes/patterns.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <!-- Chart code -->
   <script>
-    function monthlyReqChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention){
-      var ageRange=deadAge-retireAge+1; //연령범위
-      var reqAsset=reqAsset;  //월 필요금액
-      var monthlyFinAsset=Math.round(finAsset/ageRange/12); //월별로 받을 금액들
-      var monthlyPubPention=Math.round(pubPention/ageRange/12);
-      var monthlyPerPention=Math.round(perPention/ageRange/12);
-      var monthlyRetirePention=Math.round(retirePention/ageRange/12);
-      var shortAmount=reqAsset-(monthlyFinAsset+monthlyPubPention+monthlyPerPention+monthlyRetirePention);  //월 부족금액
+    function monthlyReqChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
+      var ageRange = deadAge - retireAge + 1; //연령범위
+      var reqAsset = reqAsset;  //월 필요금액
+      var monthlyFinAsset = Math.round(finAsset / ageRange / 12); //월별로 받을 금액들
+      var monthlyPubPention = Math.round(pubPention / ageRange / 12);
+      var monthlyPerPention = Math.round(perPention / ageRange / 12);
+      var monthlyRetirePention = Math.round(retirePention / ageRange / 12);
+      var shortAmount = reqAsset - (monthlyFinAsset + monthlyPubPention + monthlyPerPention + monthlyRetirePention);  //월 부족금액
       am4core.useTheme(am4themes_animated);
       // 도넛차트 시작
       var chart = am4core.create("chartdiv", am4charts.PieChart);
       chart.innerRadius = am4core.percent(20);
       chart.logo.disabled = true; //arm차트 로고 숨기기
-    
+
       // 카테고리별 도넛차트 생성
       var pieSeries2 = chart.series.push(new am4charts.PieSeries());
       pieSeries2.dataFields.value = "value";
       pieSeries2.slices.template.propertyFields.fill = "fill";
-      pieSeries2.labels.template.fontSize="30";
+      pieSeries2.labels.template.fontSize = "30";
       pieSeries2.labels.template.propertyFields.disabled = "labelDisabled";  //조각 라벨
       pieSeries2.ticks.template.propertyFields.disabled = "labelDisabled";   //조각 화살표
       // Add data
       pieSeries2.data = [{
         "category": "금융자산",
         "value": monthlyFinAsset,
-        "fill":"#008FFB",
-        "labelDisabled":true
-        }, {
+        "fill": "#008FFB",
+        "labelDisabled": true
+      }, {
         "category": "공적연금",
         "value": monthlyPubPention,
-        "fill":"#00E397",
-        "labelDisabled":true
-        }, 
-        {
+        "fill": "#00E397",
+        "labelDisabled": true
+      },
+      {
         "category": "퇴직연금",
         "value": monthlyRetirePention,
-        "fill":"#FEB019",
-        "labelDisabled":true
-        },
-        {
+        "fill": "#FEB019",
+        "labelDisabled": true
+      },
+      {
         "category": "개인연금",
         "value": monthlyPerPention,
-        "fill":"#B3C9ED",
-        "labelDisabled":true,
-        },
-      
-        {
+        "fill": "#B3C9ED",
+        "labelDisabled": true,
+      },
+
+      {
         "category": "부족금액",
         "value": shortAmount,
-        "fill":"#FFFFFF",
-        "labelDisabled":true
+        "fill": "#FFFFFF",
+        "labelDisabled": true
       }];
 
       // 부족금액 큰 조각 생성부분
@@ -111,40 +133,40 @@
       pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";   //큰 조각 화살표
       pieSeries.data = [{
         "category": "",
-        "value": monthlyFinAsset+monthlyPerPention+monthlyPubPention+monthlyRetirePention,
-        "labelDisabled":true,
-        "labelDisabled2":true
-      
+        "value": monthlyFinAsset + monthlyPerPention + monthlyPubPention + monthlyRetirePention,
+        "labelDisabled": true,
+        "labelDisabled2": true
+
       }, {
         "category": "부족금액",
         "value": shortAmount,
-        "fill":"#FF4560",
-  
+        "fill": "#FF4560",
+
       }];
 
-      pieSeries.adapter.add("innerRadius", function(innerRadius, target){
+      pieSeries.adapter.add("innerRadius", function (innerRadius, target) {
         return am4core.percent(40);
       })
-      
-      pieSeries2.adapter.add("innerRadius", function(innerRadius, target){
+
+      pieSeries2.adapter.add("innerRadius", function (innerRadius, target) {
         return am4core.percent(60);
       })
-      
-      pieSeries.adapter.add("radius", function(innerRadius, target){
+
+      pieSeries.adapter.add("radius", function (innerRadius, target) {
         return am4core.percent(100);
       })
-      
-      pieSeries2.adapter.add("radius", function(innerRadius, target){
+
+      pieSeries2.adapter.add("radius", function (innerRadius, target) {
         return am4core.percent(80);
       })
-      
+
       //레전드 박스
-      document.getElementById('pie_legend_box1').innerHTML = "금융자산<br>" + Math.round(finAsset/100000000)+"억원";
-      document.getElementById('pie_legend_box2').innerHTML = "공적연금<br>" + Math.round(pubPention/100000000)+"억원";
-      document.getElementById('pie_legend_box3').innerHTML = "퇴직연금<br>" + Math.round(retirePention/100000000)+"억원";
-      document.getElementById('pie_legend_box4').innerHTML = "개인연금<br>" + Math.round(perPention/100000000)+"억원";
+      document.getElementById('pie_legend_box1').innerHTML = "금융자산<br>" + Math.round(finAsset / 100000000) + "억원";
+      document.getElementById('pie_legend_box2').innerHTML = "공적연금<br>" + Math.round(pubPention / 100000000) + "억원";
+      document.getElementById('pie_legend_box3').innerHTML = "퇴직연금<br>" + Math.round(retirePention / 100000000) + "억원";
+      document.getElementById('pie_legend_box4').innerHTML = "개인연금<br>" + Math.round(perPention / 100000000) + "억원";
       // 마우스 클릭 이벤트 제어
-      var slice = pieSeries.slices.template;    
+      var slice = pieSeries.slices.template;
       slice.states.getKey("hover").properties.scale = 1;
       slice.states.getKey("active").properties.shiftRadius = 0;
       slice = pieSeries2.slices.template;
@@ -152,12 +174,12 @@
       slice.states.getKey("active").properties.shiftRadius = 0;
 
       slice.events.on("dragstop", function (event) {
-            handleDragStop(event);
-        })
+        handleDragStop(event);
+      })
 
       // 파이차트 가운데 합계 라벨
       var label = pieSeries.createChild(am4core.Label);
-      label.text =  '미래준비율\n'+Math.round((monthlyFinAsset+monthlyPerPention+monthlyPubPention+monthlyRetirePention)/reqAsset*100)+"% 달성";
+      label.text = '미래준비율\n' + Math.round((monthlyFinAsset + monthlyPerPention + monthlyPubPention + monthlyRetirePention) / reqAsset * 100) + "% 달성";
       label.horizontalCenter = "middle";
       label.verticalCenter = "middle";
       label.fontSize = 40;
@@ -166,24 +188,128 @@
       pieSeries.hiddenState.properties.endAngle = -80;
       pieSeries2.hiddenState.properties.endAngle = -80;
 
-  }
+    }
+
+    function monthlyPentionChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
+            var ageRange = deadAge - retireAge + 1; //연령범위
+            var reqAsset = reqAsset;  //월 필요금액
+            var monthlyFinAsset = Math.round(finAsset / ageRange / 12 / 10000); //월별로 받을 금액들
+            var monthlyPubPention = Math.round(pubPention / ageRange / 12 / 10000);
+            var monthlyPerPention = Math.round(perPention / ageRange / 12 / 10000);
+            var monthlyRetirePention = Math.round(retirePention / ageRange / 12 / 10000);
+            var shortAmount = reqAsset - (monthlyFinAsset + monthlyPubPention + monthlyPerPention + monthlyRetirePention);  //월 부족금액
+            var options = {
+                series: [{
+                    name: '현재 납입액',
+                    data: [monthlyPubPention, monthlyRetirePention, monthlyPerPention]
+                }, {
+                    name: '추가 예상적립액',
+                    data: [300 - monthlyPubPention, 200 - monthlyRetirePention, 100 - monthlyPerPention],
+                    color: '#949494'
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 250,
+                    stacked: true,
+                    stackType: true,
+                    toolbar: {
+                        show: false,
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                    },
+                },
+                xaxis: {
+                    categories: ['공적연금', '퇴직연금', '개인연금'],
+                    labels: {
+                        formatter: function (val) {
+                            return val + "만원"
+                        }
+                    }
+                },
+                grid: {
+                    show: false,
+                },
+                legend: {
+                    show: false,
+                },
+                fill: {
+                    opacity: 1
+
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left',
+                    offsetX: 40,
+                    onItemClick: {
+                        toggleDataSeries: false
+                    },
+                    onItemHover: {
+                        highlightDataSeries: false
+                    }
+                },
+                tooltip: {
+                    enabled: false,
+                },
+                states: {
+                    active: {
+                        allowMultipleDataPointsSelection: false,
+                        filter: {
+                            type: 'none',
+                            value: 0,
+                        }
+                    },
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+            document.getElementById('prePention').innerHTML = "<td>예상적립액</td><td>" + (pubPention / 100000000).toFixed(1) + "억원</td><td>" + (retirePention / 100000000).toFixed(1) + "억원</td><td>" + (perPention / 100000000).toFixed(1) + "억원</td>";
+            document.getElementById('payPention').innerHTML = "<td>총납입액</td><td>" + (pubPention / 100000000).toFixed(1) + "억원</td><td>" + (retirePention / 100000000).toFixed(1) + "억원</td><td>" + (perPention / 100000000).toFixed(1) + "억원</td>";
+        }
   </script>
-  </head>
-  <body>
+</head>
+
+<body>
   <!-- HTML -->
-  
-  <div><div id="chartdiv"></div>
-  <div id="pie_legend_div">
-    <div class="pie_legend_box" id="pie_legend_box1" style="background-color:#008FFB">
+
+  <div>
+    <div id="chartdiv"></div>
+    <div id="pie_legend_div">
+      <div class="pie_legend_box" id="pie_legend_box1" style="background-color:#008FFB">
+      </div>
+      <div class="pie_legend_box" id="pie_legend_box2" style="background-color:#00E397">
+      </div>
+      <div class="pie_legend_box" id="pie_legend_box3" style="background-color:#FEB019">
+      </div>
+      <div class="pie_legend_box" id="pie_legend_box4" style="background-color:#B3C9ED">
+      </div>
     </div>
-    <div class="pie_legend_box" id="pie_legend_box2" style="background-color:#00E397">
-    </div>
-    <div class="pie_legend_box" id="pie_legend_box3" style="background-color:#FEB019">
-    </div>
-    <div class="pie_legend_box" id="pie_legend_box4" style="background-color:#B3C9ED">
-    </div>
-</div>
-<script>monthlyReqChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+    <script>monthlyReqChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="chart"></div>
+    <div>
+      <table class="pentionTable">
+          <tr style="background-color:#FFBB00">
+              <th>구분</th>
+              <th>국민연금</th>
+              <th>퇴직연금</th>
+              <th>개인연금</th>
+          </tr>
+          <tr id="prePention">
+
+          </tr>
+          <tr id="payPention">
+          </tr>
+
+      </table>
+
+  </div>
+  <script>monthlyPentionChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
 </body>
 
 </html>
