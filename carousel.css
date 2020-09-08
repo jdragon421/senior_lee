@@ -158,9 +158,8 @@
 
 #totalAsset_pieChart {
     width: 100%;
-    height: 85%;
+    height: 77%;
 }
-
 
 #pie_legend_div {
     width: 100%;
@@ -189,11 +188,28 @@
     padding : 1rem;
     color : white;
 }
-  .pentionTable {
+
+.pention_chart {
+    width:80%;
+    margin-top: 3%;
+    height: 80rem;
+    border:1px solid silver;
+    border-radius: 3rem;
+    padding : 5%;
+
+}
+
+#pention_barchart{
+    width: 100%;
+    height: 80%;
+}
+
+.pentionTable {
     border-collapse: collapse;
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    font-size : 3rem;
 }
 
   th,

@@ -11,7 +11,10 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
   <script>
+
+    /*자산 도넛차트 함수*/
     function totalAsset_pieChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
+      var futureScore = 0;  // 미래준비율 % 변수
       var ageRange = deadAge - retireAge + 1; //연령범위
       var reqAsset = reqAsset;  //월 필요금액
       var monthlyFinAsset = Math.round(finAsset / ageRange / 12); //월별로 받을 금액들
@@ -106,7 +109,7 @@
       document.getElementById('pie_legend_box2').innerHTML = "공적연금<br>" + Math.round(pubPention / 100000000) + "억원";
       document.getElementById('pie_legend_box3').innerHTML = "퇴직연금<br>" + Math.round(retirePention / 100000000) + "억원";
       document.getElementById('pie_legend_box4').innerHTML = "개인연금<br>" + Math.round(perPention / 100000000) + "억원";
-     
+
       // 마우스 클릭 이벤트 제어
       var slice = pieSeries.slices.template;
       slice.states.getKey("hover").properties.scale = 1;
@@ -121,7 +124,9 @@
 
       // 파이차트 가운데 합계 라벨
       var label = pieSeries.createChild(am4core.Label);
-      label.text = '미래준비율\n' + Math.round((monthlyFinAsset + monthlyPerPention + monthlyPubPention + monthlyRetirePention) / reqAsset * 100) + "% 달성";
+      futureScore = Math.round((monthlyFinAsset + monthlyPerPention + monthlyPubPention + monthlyRetirePention) / reqAsset * 100);
+      document.getElementById('future_span').innerHTML = futureScore + "%";
+      label.text = futureScore + "%";
       label.horizontalCenter = "middle";
       label.verticalCenter = "middle";
       label.fontSize = 40;
@@ -132,6 +137,7 @@
 
     }
 
+    /*연금 Bar차트 함수*/
     function monthlyPention_barChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
       var ageRange = deadAge - retireAge + 1; //연령범위
       var reqAsset = reqAsset;  //월 필요금액
@@ -149,9 +155,18 @@
           data: [300 - monthlyPubPention, 200 - monthlyRetirePention, 100 - monthlyPerPention],
           color: '#949494'
         }],
+        dataLabels: {
+          textAnchor: 'middle',
+          distributed: false,
+          offsetY: 10,
+          style: {
+            fontSize: '3rem',
+            fontWeight: 'bold',
+          },
+        },
         chart: {
           type: 'bar',
-          height: 250,
+          height: "70%",
           stacked: true,
           stackType: true,
           toolbar: {
@@ -165,11 +180,35 @@
         },
         xaxis: {
           categories: ['공적연금', '퇴직연금', '개인연금'],
+         
           labels: {
             formatter: function (val) {
               return val + "만원"
+            },
+            style: {
+              colors: [],
+              fontSize: '3rem',
+              fontFamily: 'KB',
+              fontWeight: 500,
+              cssClass: 'apexcharts-xaxis-label',
+            },
+            offsetY: 15
+          },
+          axisTicks: {
+            show: true,
+            height: 15
+          }
+        },
+        yaxis: {
+          labels: {
+            style: {
+              fontSize: '2.5rem',
+              fontFamily: 'KB',
+              fontWeight: 500,
+              cssClass: 'apexcharts-yaxis-label'
             }
           }
+
         },
         grid: {
           show: false,
@@ -179,12 +218,16 @@
         },
         fill: {
           opacity: 1
-
         },
         legend: {
           position: 'top',
           horizontalAlign: 'left',
-          offsetX: 40,
+          fontSize: '30rem',
+          offsetX: 50,
+          markers: {
+            width: '30rem',
+            height: '30rem',
+          },
           onItemClick: {
             toggleDataSeries: false
           },
@@ -206,7 +249,7 @@
         }
       }
 
-      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      var chart = new ApexCharts(document.querySelector("#pention_barchart"), options);
       chart.render();
 
       document.getElementById('prePention').innerHTML = "<td>예상적립액</td><td>" + (pubPention / 100000000).toFixed(1) + "억원</td><td>" + (retirePention / 100000000).toFixed(1) + "억원</td><td>" + (perPention / 100000000).toFixed(1) + "억원</td>";
@@ -261,21 +304,25 @@
             </div>
           </div>
 
+          <div class="pention_chart">
 
-          <div class="totalAsset_chart">
-            <div id="totalAsset_pieChart"></div>
-            <div id="pie_legend_div">
-              <div class="pie_legend_box" style="background-color:#008FFB; float:left"><p id="pie_legend_box1" class="legend_content"></p>
-              </div>
-              <div class="pie_legend_box" style="background-color:#00E397; float:left; margin-left: 2.7%" ><p id="pie_legend_box2" class="legend_content"></p>
-              </div>
-              <div class="pie_legend_box" style="background-color:#FEB019; float:left; margin-left: 2.7%;"><p id="pie_legend_box3" class="legend_content"></p>
-              </div>
-              <div class="pie_legend_box" style="background-color:#B3C9ED; float:right;"><p id="pie_legend_box4" class="legend_content"></p>
-              </div>
-            </div>
+            <div id="pention_barchart"></div>
+            <table class="pentionTable">
+              <tr style="background-color:#FFBB00">
+                <th>구분</th>
+                <th>국민연금</th>
+                <th>퇴직연금</th>
+                <th>개인연금</th>
+              </tr>
+              <tr id="prePention">
+
+              </tr>
+              <tr id="payPention">
+              </tr>
+
+            </table>
           </div>
-          <script>totalAsset_pieChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+          <script>monthlyPention_barChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
 
         </li>
         <li class="carousel_el" style="background:pink;left:100%;"></li>
