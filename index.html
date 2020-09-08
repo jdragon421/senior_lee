@@ -21,7 +21,7 @@
       var shortAmount = reqAsset - (monthlyFinAsset + monthlyPubPention + monthlyPerPention + monthlyRetirePention);  //월 부족금액
       am4core.useTheme(am4themes_animated);
       // 도넛차트 시작
-      var chart = am4core.create("totalAsset_piechart", am4charts.PieChart);
+      var chart = am4core.create("totalAsset_pieChart", am4charts.PieChart);
       chart.innerRadius = am4core.percent(20);
       chart.logo.disabled = true; //arm차트 로고 숨기기
 
@@ -69,6 +69,7 @@
       pieSeries.dataFields.value = "value";
       pieSeries.slices.template.stroke = am4core.color("#fff");
       pieSeries.slices.template.propertyFields.fill = "fill";
+      pieSeries.labels.template.fontSize = "35";
       pieSeries.slices.template.propertyFields.disabled = "labelDisabled2";
       pieSeries.labels.template.propertyFields.disabled = "labelDisabled";  //큰 조각 라벨
       pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";   //큰 조각 화살표
@@ -261,18 +262,21 @@
           </div>
 
 
-          <div id="totalAsset_piechart" class="totalAsset_piechart">
-            <script>totalAsset_pieChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+          <div class="totalAsset_chart">
+            <div id="totalAsset_pieChart"></div>
+            <div id="pie_legend_div">
+              <div class="pie_legend_box" style="background-color:#008FFB; float:left"><p id="pie_legend_box1" class="legend_content"></p>
+              </div>
+              <div class="pie_legend_box" style="background-color:#00E397; float:left; margin-left: 6.7%" ><p id="pie_legend_box2" class="legend_content"></p>
+              </div>
+              <div class="pie_legend_box" style="background-color:#FEB019; float:left; margin-left: 6.7%;"><p id="pie_legend_box3" class="legend_content"></p>
+              </div>
+              <div class="pie_legend_box" style="background-color:#B3C9ED; float:right;"><p id="pie_legend_box4" class="legend_content"></p>
+              </div>
+            </div>
           </div>
-          <div class="pie_legend_box" id="pie_legend_box1" style="background-color:#008FFB">
-          </div>
-          <div class="pie_legend_box" id="pie_legend_box2" style="background-color:#00E397">
-          </div>
-          <div class="pie_legend_box" id="pie_legend_box3" style="background-color:#FEB019">
-          </div>
-          <div class="pie_legend_box" id="pie_legend_box4" style="background-color:#B3C9ED">
-          </div>
-      
+          <script>totalAsset_pieChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
+
         </li>
         <li class="carousel_el" style="background:pink;left:100%;"></li>
         <li class="carousel_el" style="background:skyblue;left:200%;"></li>
