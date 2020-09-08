@@ -138,7 +138,7 @@
     }
 
     /*연금 Bar차트 함수*/
-    function monthlyPention_barChart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
+    function monthlyPention_chart(retireAge, deadAge, reqAsset, finAsset, pubPention, perPention, retirePention) {
       var ageRange = deadAge - retireAge + 1; //연령범위
       var reqAsset = reqAsset;  //월 필요금액
       var monthlyFinAsset = Math.round(finAsset / ageRange / 12 / 10000); //월별로 받을 금액들
@@ -166,7 +166,7 @@
         },
         chart: {
           type: 'bar',
-          height: "70%",
+          height: "65%",
           stacked: true,
           stackType: true,
           toolbar: {
@@ -180,23 +180,22 @@
         },
         xaxis: {
           categories: ['공적연금', '퇴직연금', '개인연금'],
-         
           labels: {
             formatter: function (val) {
               return val + "만원"
             },
             style: {
               colors: [],
-              fontSize: '3rem',
+              fontSize: '2.5rem',
               fontFamily: 'KB',
               fontWeight: 500,
               cssClass: 'apexcharts-xaxis-label',
             },
-            offsetY: 15
+            offsetY: 10
           },
           axisTicks: {
             show: true,
-            height: 15
+            height: 12
           }
         },
         yaxis: {
@@ -223,7 +222,7 @@
           position: 'top',
           horizontalAlign: 'left',
           fontSize: '30rem',
-          offsetX: 50,
+          offsetX: 130,
           markers: {
             width: '30rem',
             height: '30rem',
@@ -283,14 +282,22 @@
             <div class="totalincome_month">
               <span class="ti_text">230</span>만원
             </div>
-            <div class="ti_textsub">월평균 수입</div>
+            <div class="ti_textsub">월평균 연금자산</div>
             <div class="totaldetail_wrapper">
               <div class="total_detail">
                 <div class="td_amount">
                   <span class="td_amount_input">160</span>만원
                 </div>
                 <div class="td_subtitle">
-                  월평균 <span>연금자산</span>
+                  월평균 <span>국민연금</span>
+                </div>
+              </div>
+              <div class="total_detail">
+                <div class="td_amount">
+                  <span class="td_amount_input">160</span>만원
+                </div>
+                <div class="td_subtitle">
+                  월평균 <span>퇴직연금</span>
                 </div>
               </div>
               <div class="total_detail td_last">
@@ -298,7 +305,7 @@
                   <span class="td_amount_input">70</span>만원
                 </div>
                 <div class="td_subtitle">
-                  월평균 <span>금융자산</span>
+                  월평균 <span>개인연금</span>
                 </div>
               </div>
             </div>
@@ -322,8 +329,7 @@
 
             </table>
           </div>
-          <script>monthlyPention_barChart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
-
+          <script>monthlyPention_chart(55, 90, 2700000, 200000000, 429051000, 130485000, 199140000);</script>
         </li>
         <li class="carousel_el" style="background:pink;left:100%;"></li>
         <li class="carousel_el" style="background:skyblue;left:200%;"></li>
