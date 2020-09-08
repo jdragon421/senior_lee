@@ -147,8 +147,8 @@
 
 /* 이준용 추가css*/
 .totalAsset_chart{
-    margin-top: 3%;
     width:80%;
+    margin-top: 3%;
     height: 80rem;
     border:1px solid silver;
     border-radius: 3rem;
@@ -161,21 +161,22 @@
     height: 85%;
 }
 
+
 #pie_legend_div {
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
   }
 
 .pie_legend_box {
-    width: 20%;
-    height: 1rem;
+    width: 23%;
+    height: 2.5rem;
     border-width: 1%;
     border-radius: 1rem;
     border-color: gray;
     display:inline-table;
-    font-size : 2.5rem;
+    font-size : 3.5rem;
     text-align: center;
     vertical-align: center;
     
