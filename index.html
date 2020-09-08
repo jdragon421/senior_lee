@@ -69,7 +69,7 @@
       pieSeries.dataFields.value = "value";
       pieSeries.slices.template.stroke = am4core.color("#fff");
       pieSeries.slices.template.propertyFields.fill = "fill";
-      pieSeries.labels.template.fontSize = "35";
+      pieSeries.labels.template.fontSize = "23";
       pieSeries.slices.template.propertyFields.disabled = "labelDisabled2";
       pieSeries.labels.template.propertyFields.disabled = "labelDisabled";  //큰 조각 라벨
       pieSeries.ticks.template.propertyFields.disabled = "labelDisabled";   //큰 조각 화살표
@@ -80,10 +80,9 @@
         "labelDisabled2": true
 
       }, {
-        "category": "부족금액",
+        "category": "부족금액\n",
         "value": shortAmount,
-        "fill": "#FF4560",
-
+        "fill": "#FF4560"
       }];
 
       pieSeries.adapter.add("innerRadius", function (innerRadius, target) {
@@ -107,6 +106,7 @@
       document.getElementById('pie_legend_box2').innerHTML = "공적연금<br>" + Math.round(pubPention / 100000000) + "억원";
       document.getElementById('pie_legend_box3').innerHTML = "퇴직연금<br>" + Math.round(retirePention / 100000000) + "억원";
       document.getElementById('pie_legend_box4').innerHTML = "개인연금<br>" + Math.round(perPention / 100000000) + "억원";
+     
       // 마우스 클릭 이벤트 제어
       var slice = pieSeries.slices.template;
       slice.states.getKey("hover").properties.scale = 1;
@@ -267,9 +267,9 @@
             <div id="pie_legend_div">
               <div class="pie_legend_box" style="background-color:#008FFB; float:left"><p id="pie_legend_box1" class="legend_content"></p>
               </div>
-              <div class="pie_legend_box" style="background-color:#00E397; float:left; margin-left: 6.7%" ><p id="pie_legend_box2" class="legend_content"></p>
+              <div class="pie_legend_box" style="background-color:#00E397; float:left; margin-left: 2.7%" ><p id="pie_legend_box2" class="legend_content"></p>
               </div>
-              <div class="pie_legend_box" style="background-color:#FEB019; float:left; margin-left: 6.7%;"><p id="pie_legend_box3" class="legend_content"></p>
+              <div class="pie_legend_box" style="background-color:#FEB019; float:left; margin-left: 2.7%;"><p id="pie_legend_box3" class="legend_content"></p>
               </div>
               <div class="pie_legend_box" style="background-color:#B3C9ED; float:right;"><p id="pie_legend_box4" class="legend_content"></p>
               </div>
